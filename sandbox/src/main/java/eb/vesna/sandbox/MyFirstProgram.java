@@ -1,3 +1,5 @@
+package eb.vesna.sandbox;
+
 public class MyFirstProgram {
 	
 	public static void main(String[] args){
