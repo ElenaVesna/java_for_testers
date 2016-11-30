@@ -12,4 +12,12 @@ public class Point {
         this.y = y;
 
     }
+    public double dist(Point nextPoint){
+        double dx = this.x - nextPoint.x;
+        double dy = this.y - nextPoint.y;
+        return Math.sqrt(dx * dx + dy * dy);
+
+    }
+
+
 }
