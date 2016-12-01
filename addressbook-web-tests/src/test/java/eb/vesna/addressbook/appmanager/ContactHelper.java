@@ -4,9 +4,8 @@ import eb.vesna.addressbook.models.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-/**
- * Created by Elena_Bogomolova on 01.12.2016.
- */
+//Created by Elena_Bogomolova on 01.12.2016.
+
 public class ContactHelper {
     private FirefoxDriver wd;
 
@@ -59,4 +58,20 @@ public class ContactHelper {
     public void gotoAddNewContact() {
             wd.findElement(By.linkText("add new")).click();
         }
+
+    public void editContact() {
+        wd.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img")).click();
+    }
+
+    public void saveUpdatedContact() {
+        wd.findElement(By.xpath("//div[@id='content']/form[1]/input[22]")).click();
+    }
+
+    public void selectContact() {
+        wd.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input")).click();
+    }
+
+    public void initContactDeletion() {
+        wd.findElement(By.xpath("//div[@id='content']/form[2]/div[2]/input")).click();
+    }
 }

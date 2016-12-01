@@ -20,4 +20,12 @@ public class NavigationHelper extends HelperBase{
     public void returnToHomePage() {
         click(By.linkText("home page"));
     }
+
+    public void gotoHomePage() {
+        click(By.linkText("home"));
+    }
+
+    public void clickOkToAlert () {
+        wd.switchTo().alert().accept();
+    }
 }
