@@ -1,4 +1,4 @@
-package eb.vesna.addressbook;
+package eb.vesna.addressbook.models;
 
 public class GroupData {
     private final String name;
