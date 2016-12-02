@@ -2,12 +2,11 @@ package eb.vesna.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-/**
- * Created by Elena_Bogomolova on 01.12.2016.
- */
+//Created by Elena_Bogomolova on 01.12.2016.
+
 public class HelperBase {
 
     protected WebDriver wd;
@@ -22,8 +21,13 @@ public class HelperBase {
 
     protected void type(By locator, String text) {
         click(locator);
-        wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
+        if (text != null) {
+            String existingTest = wd.findElement(locator).getAttribute("value");
+            if (! text.equals(existingTest)) {
+                wd.findElement(locator).clear();
+                wd.findElement(locator).sendKeys(text);
+            }
+        }
     }
 
     public  boolean isAlertPresent() {
@@ -36,4 +40,13 @@ public class HelperBase {
     }
 
 
+    protected boolean isElementPresent(By locator) {
+        try {
+            wd.findElement(locator);
+            return true;
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
+
+    }
 }
