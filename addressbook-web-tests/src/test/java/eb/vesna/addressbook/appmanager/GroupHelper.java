@@ -2,13 +2,14 @@ package eb.vesna.addressbook.appmanager;
 
 import eb.vesna.addressbook.models.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 //Created by Elena_Bogomolova on 01.12.2016.
 
 public class GroupHelper extends HelperBase {
 
-    public GroupHelper(FirefoxDriver wd) {
+    public GroupHelper(WebDriver wd) {
         super(wd);
     }
 

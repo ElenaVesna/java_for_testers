@@ -2,14 +2,15 @@ package eb.vesna.addressbook.appmanager;
 
 import eb.vesna.addressbook.models.ContactData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 //Created by Elena_Bogomolova on 01.12.2016.
 
 public class ContactHelper {
-    private FirefoxDriver wd;
+    private WebDriver wd;
 
-    public ContactHelper (FirefoxDriver wd) {
+    public ContactHelper (WebDriver wd) {
         this.wd = wd;
     }
 
