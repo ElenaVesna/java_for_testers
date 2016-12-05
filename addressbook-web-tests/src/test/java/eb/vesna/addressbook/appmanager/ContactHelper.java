@@ -30,7 +30,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void submitContactCreation() {
-            wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+            wd.findElement(By.xpath("//*[@id='content']/*/input[@value='Enter']")).click();
         }
 
     public void gotoAddNewContact() {
