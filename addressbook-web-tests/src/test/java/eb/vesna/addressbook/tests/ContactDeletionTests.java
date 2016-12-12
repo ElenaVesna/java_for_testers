@@ -4,6 +4,7 @@ package eb.vesna.addressbook.tests;
 
 
 import eb.vesna.addressbook.models.ContactData;
+import org.apache.xpath.SourceTree;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,7 +17,7 @@ public class ContactDeletionTests extends TestBase{
         if (! app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new ContactData("Elena", "Vesna", "+79000000", "test@test.com", "Ryazan", "testGroup2"));
         }
-        app.getContactHelper().selectContact();
+        app.getContactHelper().selectContact(before - 1);
         app.getContactHelper().initContactDeletion();
         app.getNavigationHelper().clickOkToAlert();
         app.getNavigationHelper().gotoHomePage();

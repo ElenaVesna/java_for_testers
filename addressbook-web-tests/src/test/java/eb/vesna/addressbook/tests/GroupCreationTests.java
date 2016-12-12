@@ -13,7 +13,6 @@ public class GroupCreationTests extends TestBase {
         int before = app.getGroupHelper().getGroupCount();
         app.getGroupHelper().createGroup(new GroupData("testGroup", null, "my new group"));
         int after = app.getGroupHelper().getGroupCount();
-        System.out.println("before = " + before + ", after = " + after);
         Assert.assertEquals(after, before + 1);
     }
 
