@@ -68,7 +68,6 @@ public class ContactHelper extends HelperBase {
         fillContactForm (contact, true);
         submitContactCreation();
         returnToHomePage();
-
     }
 
     public boolean isThereAContact() {
@@ -81,10 +80,12 @@ public class ContactHelper extends HelperBase {
 
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> elements = wd.findElements(By.xpath("//tr[@name=\"entry\"]/td[2]"));
+        List<WebElement> elements = wd.findElements(By.xpath("//tr[@name=\"entry\"]"));
         for (WebElement element : elements) {
-            String name = element.getText();
-            ContactData contact = new ContactData(null, name, null, null, null, null);
+            String lastName = element.findElement(By.xpath("td[2]")).getText();
+            String firstName = element.findElement(By.xpath("td[3]")).getText();
+            String id = element.findElement(By.tagName("input")).getAttribute("id");
+            ContactData contact = new ContactData(id,firstName, lastName, null, null, null, null);
             contacts.add(contact);
         }
         return contacts;
