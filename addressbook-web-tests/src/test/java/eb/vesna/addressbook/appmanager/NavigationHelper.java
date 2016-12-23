@@ -4,9 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-/**
- * Created by Elena_Bogomolova on 01.12.2016.
- */
+
 public class NavigationHelper extends HelperBase{
 
 
@@ -14,7 +12,7 @@ public class NavigationHelper extends HelperBase{
         super (wd);
     }
 
-    public void gotoGroupPage() {
+    public void groupPage() {
         if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresent(By.name("new"))) {
@@ -28,15 +26,11 @@ public class NavigationHelper extends HelperBase{
         click(By.linkText("home page"));
     }
 
-    public void gotoHomePage() {
+    public void homePage() {
         if (isElementPresent(By.id("maintable"))) {
             return;
         }
         click(By.linkText("home"));
-    }
-
-    public void clickOkToAlert () {
-        wd.switchTo().alert().accept();
     }
 
 

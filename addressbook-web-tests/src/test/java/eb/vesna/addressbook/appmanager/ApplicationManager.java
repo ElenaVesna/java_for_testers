@@ -1,15 +1,12 @@
 package eb.vesna.addressbook.appmanager;
 
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import sun.plugin2.util.BrowserType;
 
 import java.util.concurrent.TimeUnit;
 
-//Created by Elena_Bogomolova on 01.12.2016.
 
 public class ApplicationManager {
 
@@ -50,15 +47,16 @@ public class ApplicationManager {
         wd.quit();
     }
 
-    public GroupHelper getGroupHelper() {
+    public GroupHelper group() {
         return groupHelper;
     }
 
-    public NavigationHelper getNavigationHelper() {
+    public NavigationHelper goTo() {
         return navigationHelper;
     }
 
-    public ContactHelper getContactHelper() {
+
+    public ContactHelper contact() {
         return contactHelper;
     }
 }

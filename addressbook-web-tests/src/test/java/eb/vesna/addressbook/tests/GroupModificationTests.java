@@ -2,29 +2,31 @@ package eb.vesna.addressbook.tests;
 
 import eb.vesna.addressbook.models.GroupData;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.*;
 
 public class GroupModificationTests extends TestBase {
 
+    @BeforeMethod
+    public void ensurePreconditions() {
+        app.goTo().groupPage();
+        if (app.group().list().size() == 0) {
+            app.group().create(new GroupData("testGroup", null, "newGroup"));
+        }
+    }
+
     @Test
     public void testGroupModification() {
-        app.getNavigationHelper().gotoGroupPage();
-        if (! app.getGroupHelper().isThereAGroup()) {
-            app.getGroupHelper().createGroup(new GroupData("testGroup", null, "repeat actions"));
-        }
-        List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroup(before.size() - 1);
-        app.getGroupHelper().initGroupModification();
-        GroupData group = new GroupData(before.get(before.size() - 1).getId(), "testGroup2", "test", "testDescription");
-        app.getGroupHelper().fillGroupForm(group);
-        app.getGroupHelper().submitGroupModiifcation();
-        app.getGroupHelper().returnToGroupPage();
-        List<GroupData> after = app.getGroupHelper().getGroupList();
+        List<GroupData> before = app.group().list();
+        int index = before.size() - 1;
+        GroupData group = new GroupData(before.get(index).getId(), "testGroup2", "test", "testDescription");
+        app.group().modify(index, group);
+        List<GroupData> after = app.group().list();
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(before.size() - 1);
+        before.remove(index);
         before.add(group);
 
         Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
@@ -32,4 +34,5 @@ public class GroupModificationTests extends TestBase {
         after.sort(byId);
         Assert.assertEquals(before, after);
     }
+
 }
