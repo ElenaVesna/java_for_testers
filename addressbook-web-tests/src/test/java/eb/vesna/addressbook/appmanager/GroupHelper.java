@@ -4,12 +4,9 @@ import eb.vesna.addressbook.models.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.ArrayList;
 import java.util.List;
-
-//Created by Elena_Bogomolova on 01.12.2016.
 
 public class GroupHelper extends HelperBase {
 
@@ -64,7 +61,6 @@ public class GroupHelper extends HelperBase {
         fillGroupForm(group);
         submitGroupCreation();
         returnToGroupPage();
-
     }
 
     public void delete(int index) {
@@ -73,10 +69,7 @@ public class GroupHelper extends HelperBase {
         returnToGroupPage();
     }
 
-
-    public boolean isThereAGroup() {
-        return isElementPresent(By.name("selected[]"));
-    }
+    //public boolean isThereAGroup() {return isElementPresent(By.name("selected[]")); }
 
     public int getGroupCount() {
         return wd.findElements(By.name("selected[]")).size();
@@ -88,8 +81,7 @@ public class GroupHelper extends HelperBase {
         for (WebElement element : elements) {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            GroupData group = new GroupData(id, name, null, null);
-            groups.add(group);
+            groups.add(new GroupData().withId(id).withName(name));
         }
         return groups;
     }

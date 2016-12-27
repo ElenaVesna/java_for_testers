@@ -3,18 +3,17 @@ package eb.vesna.addressbook.tests;
 import eb.vesna.addressbook.models.ContactData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    @Test (enabled = false)
+    @Test 
     public void testContactCreation() {
         app.goTo().homePage();
         List<ContactData> before = app.contact().list();
-        ContactData contact = new ContactData("Elena-lambda", "Vesna-l", "+79000000", "test@test.com", "Ryazan", "testGroup2");
+        ContactData contact = new ContactData().withLastName("Elena-lambda").withFirstname("Vesna-l").withMobilePhone("+79000000").withEmail("test@test.com").withAddress("Ryazan").withGroup("testGroup2");
         app.contact().create(contact);
         List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() + 1);

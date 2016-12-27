@@ -1,22 +1,19 @@
 package eb.vesna.addressbook.tests;
 
-//Created by Elena_Bogomolova on 01.12.2016.
-
-
 import eb.vesna.addressbook.models.ContactData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.Comparator;
 import java.util.List;
 
 public class ContactDeletionTests extends TestBase{
 
-    @Test (enabled = false)
+    @Test
     public void testContactDeletion() {
         app.goTo().homePage();
         if (app.contact().list().size() == 0) {
-            app.contact().create(new ContactData("Elena", "Vesna", "+79000000", "test@test.com", "Ryazan", "testGroup2"));
+            app.contact().create(new ContactData().
+                    withFirstname("Elena").withLastName("Vesna").withMobilePhone("+79000000").withEmail("test@test.com").withAddress("Ryazan").withGroup("testGroup2"));
         }
         List<ContactData> before = app.contact().list();
         int index = before.size() - 1;
