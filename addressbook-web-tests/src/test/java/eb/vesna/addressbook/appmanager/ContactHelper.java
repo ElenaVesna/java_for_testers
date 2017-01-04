@@ -8,9 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -36,7 +34,7 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public void submitContactCreation() {
+    private void submitContactCreation() {
             click(By.xpath("//*[@id='content']/*/input[@value='Enter']"));
         }
 
@@ -48,16 +46,17 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    public void gotoAddNewContact() {
+    private void gotoAddNewContact() {
             click(By.linkText("add new"));
         }
 
-    public void editContact(int id) {
-        String hrefName = "edit.php?id=" + id;
-        wd.findElement(By.cssSelector("a[href='" + hrefName + "']")).click();
+    private void editContactById(int id) {
+//        String hrefName = "edit.php?id=" + id;
+//        wd.findElement(By.cssSelector("a[href='" + hrefName + "']")).click();
+        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
     }
 
-    public void saveUpdatedContact() {
+    private void saveUpdatedContact() {
         click(By.xpath("//div[@id='content']/form[1]/input[22]"));
     }
 
@@ -65,7 +64,7 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
-    public void initContactDeletion() {
+    private void initContactDeletion() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
 
@@ -78,7 +77,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void modify(ContactData contact) {
-        editContact(contact.getId());
+        editContactById(contact.getId());
         fillContactForm(contact, false);
         saveUpdatedContact();
         contactCache = null;
@@ -96,8 +95,10 @@ public class ContactHelper extends HelperBase {
         for (WebElement element : elements) {
             String lastName = element.findElement(By.xpath("td[2]")).getText();
             String firstName = element.findElement(By.xpath("td[3]")).getText();
+            String[] phones = element.findElement(By.xpath("td[5]")).getText().split("\n");
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-            contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastName(lastName));
+            contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastName(lastName).
+                    withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
         }
         return contactCache;
     }
@@ -114,4 +115,24 @@ public class ContactHelper extends HelperBase {
         goToHomePage();
     }
 
+    public ContactData infoFromEditForm(ContactData contact) {
+        editContactById(contact.getId());
+        //initContactModificationById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).
+                withFirstname(firstname).withLastName(lastname).
+                withMobilePhone(mobile).withHomePhone(home).withWorkPhone(work);
+    }
+
+//    private void initContactModificationById(int id) {
+//        WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+//        WebElement row = checkbox.findElement(By.xpath("./../.."));
+//        List<WebElement> cells = row.findElements(By.tagName("td"));
+//        cells.get(7).findElement(By.tagName("a")).click();
+//    }
 }
