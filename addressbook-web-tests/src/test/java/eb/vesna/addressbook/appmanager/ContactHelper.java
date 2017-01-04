@@ -32,6 +32,10 @@ public class ContactHelper extends HelperBase {
         }
     }
 
+    public int count() {
+        return wd.findElements(By.name("selected[]")).size();
+    }
+
     public void submitContactCreation() {
             click(By.xpath("//*[@id='content']/*/input[@value='Enter']"));
         }
