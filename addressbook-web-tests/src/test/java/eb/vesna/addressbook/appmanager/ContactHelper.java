@@ -12,8 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//Created by Elena_Bogomolova on 01.12.2016.
-
 public class ContactHelper extends HelperBase {
 
     public ContactHelper (WebDriver wd) {
@@ -71,34 +69,33 @@ public class ContactHelper extends HelperBase {
         gotoAddNewContact();
         fillContactForm (contact, true);
         submitContactCreation();
+        contactCache = null;
         returnToHomePage();
     }
-
-//    public boolean isThereAContact() {
-//        return isElementPresent(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
-//    }
-//
-//    public int getContactCount() {
-//        return wd.findElements(By.name("selected[]")).size();
-//    }
 
     public void modify(ContactData contact) {
         editContact(contact.getId());
         fillContactForm(contact, false);
         saveUpdatedContact();
+        contactCache = null;
         returnToHomePage();
     }
 
+    private Contacts contactCache = null;
+
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+        contactCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name=\"entry\"]"));
         for (WebElement element : elements) {
             String lastName = element.findElement(By.xpath("td[2]")).getText();
             String firstName = element.findElement(By.xpath("td[3]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-            contacts.add(new ContactData().withId(id).withFirstname(firstName).withLastName(lastName));
+            contactCache.add(new ContactData().withId(id).withFirstname(firstName).withLastName(lastName));
         }
-        return contacts;
+        return contactCache;
     }
 
     public void clickOkToAlert () {
@@ -109,6 +106,7 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         initContactDeletion();
         clickOkToAlert();
+        contactCache = null;
         goToHomePage();
     }
 
