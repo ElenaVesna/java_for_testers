@@ -4,6 +4,17 @@ public class ContactData {
     private int id = Integer.MAX_VALUE;
     private String firstname;
     private String lastName;
+    private String allPhones;
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
     private String mobilePhone;
     private String workPhone;
     private String homePhone;
