@@ -17,7 +17,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void fillContactForm(ContactData contactData, boolean creation) {
-        type (By.name("firstname"), contactData.getFirstname());
+        type (By.name("firstname"), contactData.getFirstName());
         type (By.name("lastname"), contactData.getLastName());
         type (By.name("mobile"), contactData.getMobilePhone());
         type (By.name("home"), contactData.getHomePhone());
@@ -55,9 +55,11 @@ public class ContactHelper extends HelperBase {
         }
 
     private void editContactById(int id) {
-//        String hrefName = "edit.php?id=" + id;
-//        wd.findElement(By.cssSelector("a[href='" + hrefName + "']")).click();
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+    }
+
+    private void viewContactDetailsById (int id) {
+        wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
     }
 
     private void saveUpdatedContact() {
@@ -127,7 +129,6 @@ public class ContactHelper extends HelperBase {
 
     public ContactData infoFromEditForm(ContactData contact) {
         editContactById(contact.getId());
-        //initContactModificationById(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
         String home = wd.findElement(By.name("home")).getAttribute("value");
@@ -143,6 +144,12 @@ public class ContactHelper extends HelperBase {
                 withMobilePhone(mobile).withHomePhone(home).withWorkPhone(work).
                 withAddress(address).
                 withEmail(email).withEmail2(email2).withEmail3(email3);
+    }
+
+    public String infoFromDetailsForm(ContactData contact) {
+        viewContactDetailsById(contact.getId());
+        String allInfo = wd.findElement(By.id("content")).getText();
+        return allInfo;
     }
 
 //    private void initContactModificationById(int id) {

@@ -1,18 +1,21 @@
 package eb.vesna.addressbook.models;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class ContactData {
     private int id = Integer.MAX_VALUE;
     private String firstname;
     private String lastName;
+    private String address;
     private String allPhones;
-    private String allEmails;
-    private String email3;
     private String mobilePhone;
     private String workPhone;
     private String homePhone;
+    private String allEmails;
     private String email;
     private String email2;
-    private String address;
+    private String email3;
     private String group;
 
     public String getAllEmails() {
@@ -92,7 +95,7 @@ public class ContactData {
         return this;
     }
 
-    public String getFirstname() {
+    public String getFirstName() {
         return firstname;
     }
 
@@ -160,4 +163,9 @@ public class ContactData {
     }
 
 
+    public String mergeEmails() {
+        return Arrays.asList(getEmail(), getEmail2(), getEmail3())
+                .stream().filter((s) -> ! s.equals(""))
+                .collect(Collectors.joining("\n"));
+    }
 }
