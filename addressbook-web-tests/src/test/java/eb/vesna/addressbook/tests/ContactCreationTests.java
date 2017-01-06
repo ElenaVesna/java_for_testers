@@ -16,7 +16,8 @@ public class ContactCreationTests extends TestBase {
         ContactData contact = new ContactData().
                 withLastName("Vesna-L5").withFirstname("Elena").
                 withMobilePhone("+79000000").withHomePhone("999999").withWorkPhone("+7100000").
-                withEmail("test@test.com").withAddress("Ryazan").withGroup("testGroup2");
+                withEmail("test@test.com").withEmail2("111@test.com").withEmail3("222@test.com").
+                withAddress("Ryazan").withGroup("testGroup2");
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.contact().all();
