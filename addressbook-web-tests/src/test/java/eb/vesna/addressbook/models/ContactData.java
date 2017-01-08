@@ -38,6 +38,8 @@ public class ContactData {
     @Expose
     private String group;
 
+    private File photo;
+
     public File getPhoto() {
         return photo;
     }
@@ -46,8 +48,6 @@ public class ContactData {
         this.photo = photo;
         return this;
     }
-
-    private File photo;
 
     public String getAllEmails() {
         return allEmails;
@@ -72,6 +72,11 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
     public ContactData withWorkPhone(String workPhone) {
         this.workPhone = workPhone;
         return this;
@@ -93,11 +98,6 @@ public class ContactData {
 
     public ContactData withLastName(String lastName) {
         this.lastName = lastName;
-        return this;
-    }
-
-    public ContactData withMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
         return this;
     }
 
@@ -193,10 +193,8 @@ public class ContactData {
         return result;
     }
 
-
     public String mergeEmails() {
         return Arrays.asList(getEmail(), getEmail2(), getEmail3())
-                .stream().filter((s) -> ! s.equals(""))
-                .collect(Collectors.joining("\n"));
+                .stream().filter((s) -> !s.equals("")).collect(Collectors.joining("\n"));
     }
 }

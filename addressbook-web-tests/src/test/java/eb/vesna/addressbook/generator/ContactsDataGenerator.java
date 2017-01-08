@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import eb.vesna.addressbook.models.ContactData;
-import eb.vesna.addressbook.models.GroupData;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,13 +18,13 @@ import java.util.List;
 
 public class ContactsDataGenerator {
 
-    @Parameter (names = "-c", description = "Contacts count")
+    @Parameter(names = "-c", description = "Contacts count")
     public int count;
 
-    @Parameter (names = "-f", description = "Target file")
+    @Parameter(names = "-f", description = "Target file")
     public String file;
 
-    @Parameter (names = "-d", description = "Data format")
+    @Parameter(names = "-d", description = "Data format")
     public String format;
 
     public static void main(String[] args) throws IOException {
@@ -48,7 +47,7 @@ public class ContactsDataGenerator {
             saveAsXml(contacts, new File(file));
         } else if (format.equals("json")) {
             saveAsJson(contacts, new File(file));
-        } else  {
+        } else {
             System.out.println("Unrecognised format");
         }
     }
