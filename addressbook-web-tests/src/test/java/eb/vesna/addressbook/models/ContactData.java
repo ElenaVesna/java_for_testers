@@ -1,5 +1,6 @@
 package eb.vesna.addressbook.models;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,17 @@ public class ContactData {
     private String email2;
     private String email3;
     private String group;
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
+
+    private File photo;
 
     public String getAllEmails() {
         return allEmails;
