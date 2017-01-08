@@ -1,5 +1,8 @@
 package eb.vesna.addressbook.generator;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import eb.vesna.addressbook.models.ContactData;
 
 import java.io.File;
@@ -12,15 +15,30 @@ import java.util.List;
 
 public class ContactsDataGenerator {
 
-    public static void main(String[] args) throws IOException {
-        int count = Integer.parseInt(args[0]);
-        File file = new File(args[1]);
+    @Parameter (names = "-c", description = "Contacts count")
+    public int count;
 
-        List<ContactData> contacts = generateGroups(count);
-        save(contacts, file);
+    @Parameter (names = "-f", description = "Target file")
+    public String file;
+
+    public static void main(String[] args) throws IOException {
+        ContactsDataGenerator generator = new ContactsDataGenerator();
+        JCommander jCommander = new JCommander(generator);
+        try {
+            jCommander.parse(args);
+        } catch (ParameterException ex) {
+            jCommander.usage();
+            return;
+        }
+        generator.run();
     }
 
-    private static void save(List<ContactData> contacts, File file) throws IOException {
+    private void run() throws IOException {
+        List<ContactData> contacts = generateGroups(count);
+        save(contacts, new File(file));
+    }
+
+    private void save(List<ContactData> contacts, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (ContactData contact : contacts) {
             writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
@@ -33,7 +51,7 @@ public class ContactsDataGenerator {
         writer.close();
     }
 
-    private static List<ContactData> generateGroups(int count) {
+    private List<ContactData> generateGroups(int count) {
         List<ContactData> contacts = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++) {
             contacts.add(new ContactData()
