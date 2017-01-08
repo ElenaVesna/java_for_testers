@@ -45,7 +45,7 @@ public class ContactsDataGenerator {
                     contact.getFirstName(), contact.getLastName(),
                     contact.getAddress(),
                     contact.getEmail(), contact.getEmail2(), contact.getEmail3(),
-                    contact.getHomePhone(), contact.getWorkPhone(), contact.getMobilePhone(),
+                    contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(),
                     contact.getGroup()));
         }
         writer.close();
