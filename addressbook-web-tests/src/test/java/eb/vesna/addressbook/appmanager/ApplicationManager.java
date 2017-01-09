@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-
 public class ApplicationManager {
     WebDriver wd;
     private final Properties properties;
@@ -38,7 +37,6 @@ public class ApplicationManager {
         } else if (browser.equals(BrowserType.IE)) {
             wd = new InternetExplorerDriver();
         }
-
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseURL"));
         groupHelper = new GroupHelper(wd);

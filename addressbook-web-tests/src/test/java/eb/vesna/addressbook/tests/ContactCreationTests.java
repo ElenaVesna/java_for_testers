@@ -72,7 +72,6 @@ public class ContactCreationTests extends TestBase {
         }
     }
 
-
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
         app.goTo().homePage();
@@ -84,7 +83,6 @@ public class ContactCreationTests extends TestBase {
         Contacts after = app.contact().all();
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
-
     }
 
     @Test(enabled = false)
@@ -95,5 +93,4 @@ public class ContactCreationTests extends TestBase {
         System.out.println(photo.getAbsolutePath());
         System.out.println(photo.exists());
     }
-
 }
