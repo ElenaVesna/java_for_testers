@@ -3,49 +3,77 @@ package eb.vesna.addressbook.models;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-@XStreamAlias("contact")
-
+@XStreamAlias("addressbook")
+@Entity
+@Table (name = "addressbook")
 public class ContactData {
-    @XStreamOmitField
-    private int id = Integer.MAX_VALUE;
+    //@XStreamOmitField
+    @Id
+    private int id;
     @Expose
+    @Column (name = "firstname")
     private String firstname;
     @Expose
+    @Column (name = "lastname")
     private String lastName;
     @Expose
+    @Column (name = "address")
+    @Type(type = "text")
     private String address;
+
     @Expose
+    @Transient
     private String allPhones;
     @Expose
+    @Type(type = "text")
+    @Column (name = "mobile")
     private String mobilePhone;
     @Expose
+    @Type(type = "text")
+    @Column (name = "work")
     private String workPhone;
     @Expose
+    @Column (name = "home")
+    @Type(type = "text")
     private String homePhone;
+
     @Expose
+    @Transient
     private String allEmails;
     @Expose
+    @Column (name = "email")
+    @Type(type = "text")
     private String email;
     @Expose
+    @Column (name = "email2")
+    @Type(type = "text")
     private String email2;
     @Expose
+    @Column (name = "email3")
+    @Type(type = "text")
     private String email3;
+
     @Expose
+    @Transient
     private String group;
 
-    private File photo;
+    @Column (name = "photo")
+    @Type(type = "text")
+    private String photo;
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
