@@ -1,6 +1,10 @@
 package eb.vesna.addressbook.tests;
 
 import eb.vesna.addressbook.appmanager.ApplicationManager;
+import eb.vesna.addressbook.models.ContactData;
+import eb.vesna.addressbook.models.Contacts;
+import eb.vesna.addressbook.models.GroupData;
+import eb.vesna.addressbook.models.Groups;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +15,10 @@ import org.testng.annotations.BeforeSuite;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestBase {
 
@@ -38,5 +46,30 @@ public class TestBase {
     public void logTestStop(Method m, Object[] p) {
         logger.info("Stop test " + m.getName() + " with parameters " + Arrays.asList(p));
     }
+
+    public void verifyGroupListInUI() {
+        if (Boolean.getBoolean("verifyUI")) {
+            Groups dbGroups = app.db().groups();
+            Groups uiGroups = app.group().all();
+            assertThat(uiGroups, equalTo(dbGroups.stream()
+                    .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+                    .collect(Collectors.toSet())));
+        }
+
+    }
+
+    public void verifyContactListInUI() {
+        if (Boolean.getBoolean("verifyUI")) {
+            Contacts dbContacts = app.db().contacts();
+            Contacts uiContacts = app.contact().all();
+            assertThat(uiContacts, equalTo(dbContacts.stream()
+                    .map((c) -> new ContactData()
+                            .withId(c.getId()).withFirstname(c.getFirstName()).withLastName(c.getLastName())
+                            .withAddress(c.getAddress()).withAllEmails(c.getAllEmails()).withAllPhones(c.getAllPhones()))
+                    .collect(Collectors.toSet())));
+        }
+
+    }
+
 
 }

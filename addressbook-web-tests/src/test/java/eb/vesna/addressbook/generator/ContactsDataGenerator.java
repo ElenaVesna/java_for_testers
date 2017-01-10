@@ -92,9 +92,9 @@ public class ContactsDataGenerator {
                     .withEmail(String.format("email-%s", i))
                     .withEmail2(String.format("secondEmail-%s", i))
                     .withEmail3(String.format("thirdEmail-%s", i))
-                    .withHomePhone(String.format("homePhone-%s", i))
-                    .withWorkPhone(String.format("workPhone-%s", i))
-                    .withMobilePhone(String.format("mobilePhone-%s", i))
+                    .withHomePhone(String.format("000-00-0%s", i))
+                    .withWorkPhone(String.format("495000000%s", i))
+                    .withMobilePhone(String.format("00-00-0%s", i))
                     .withGroup(String.format("testGroup%s", i)));
         }
         return contacts;

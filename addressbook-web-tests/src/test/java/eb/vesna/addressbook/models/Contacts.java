@@ -2,7 +2,6 @@ package eb.vesna.addressbook.models;
 
 import com.google.common.collect.ForwardingSet;
 
-import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +19,7 @@ public class Contacts extends ForwardingSet<ContactData> {
         this.delegate = new HashSet<ContactData>();
         }
 
-    public Contacts(Collection<ContactData> contacts) {
+    public Contacts(List<ContactData> contacts) {
         this.delegate = new HashSet<ContactData>(contacts);
     }
 

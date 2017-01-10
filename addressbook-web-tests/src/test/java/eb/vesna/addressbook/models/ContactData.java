@@ -3,6 +3,7 @@ package eb.vesna.addressbook.models;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import eb.vesna.addressbook.tests.ContactPhoneEmailAddressTests;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -243,4 +244,16 @@ public class ContactData {
         return Arrays.asList(getEmail(), getEmail2(), getEmail3())
                 .stream().filter((s) -> !s.equals("")).collect(Collectors.joining("\n"));
     }
+
+    public String mergePhones() {
+        return Arrays.asList(getHomePhone(), getMobilePhone(), getWorkPhone())
+                .stream().filter((s) -> ! s.equals(""))
+                .map(ContactData::cleaned)
+                .collect(Collectors.joining("\n"));
+    }
+
+    public static String cleaned(String phone) {
+        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
+    }
+
 }
