@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import eb.vesna.addressbook.models.ContactData;
+import eb.vesna.addressbook.tests.TestBase;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -15,8 +16,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class ContactsDataGenerator {
+//-f src/test/resources/contacts.json -c 3 -d json
+public class ContactsDataGenerator extends TestBase {
 
     @Parameter(names = "-c", description = "Contacts count")
     public int count;
@@ -73,11 +74,12 @@ public class ContactsDataGenerator {
         try (Writer writer = new FileWriter(file)) {
             for (ContactData contact : contacts) {
                 writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
-                        contact.getFirstName(), contact.getLastName(),
+                        contact.getFirstname(), contact.getLastName(),
                         contact.getAddress(),
                         contact.getEmail(), contact.getEmail2(), contact.getEmail3(),
-                        contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(),
-                        contact.getGroup()));
+                        contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone()
+//                        ,contact.getGroup()
+                ));
             }
         }
     }
@@ -95,7 +97,7 @@ public class ContactsDataGenerator {
                     .withHomePhone(String.format("000-00-0%s", i))
                     .withWorkPhone(String.format("495000000%s", i))
                     .withMobilePhone(String.format("00-00-0%s", i))
-                    .withGroup(String.format("testGroup%s", i)));
+            );
         }
         return contacts;
     }

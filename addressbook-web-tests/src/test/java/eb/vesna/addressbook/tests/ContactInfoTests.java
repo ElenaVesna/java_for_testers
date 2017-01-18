@@ -1,6 +1,7 @@
 package eb.vesna.addressbook.tests;
 
 import eb.vesna.addressbook.models.ContactData;
+import eb.vesna.addressbook.models.GroupData;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -17,8 +18,9 @@ public class ContactInfoTests extends TestBase {
                     withFirstname("Elena").withLastName("Vesna-L5").
                     withMobilePhone("+79000000").withHomePhone("999-999").withWorkPhone("+7(100)000000").
                     withEmail("test@test.com").withEmail2("111@test.com").withEmail3("222@test.com").
-                    withAddress("Ryazan, Best St, 8-12").
-                    withGroup("testGroup2"));
+                    withAddress("Ryazan, Best St, 8-12")
+                    .inGroup(app.db().groups().iterator().next())
+            );
         }
     }
 
@@ -28,6 +30,7 @@ public class ContactInfoTests extends TestBase {
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
         String detailsContactInfo = app.contact().infoFromDetailsForm(contact);
+        String info = allContactInfo(contactInfoFromEditForm);
 
         assertThat(allContactInfo(contactInfoFromEditForm), equalTo(detailsContactInfo));
     }
@@ -35,7 +38,7 @@ public class ContactInfoTests extends TestBase {
 
     public String allContactInfo(ContactData contact) {
         StringBuilder allInfo = new StringBuilder();
-        allInfo.append(contact.getFirstName());
+        allInfo.append(contact.getFirstname());
         allInfo.append(" ");
         allInfo.append(contact.getLastName());
         allInfo.append("\n");
@@ -58,6 +61,10 @@ public class ContactInfoTests extends TestBase {
         if (!contact.mergeEmails().isEmpty()) {
             allInfo.append("\n\n");
             allInfo.append(contact.mergeEmails());
+        }
+        if (!contact.getGroups().isEmpty()) {
+            allInfo.append("\n\n\nMember of: ");
+            allInfo.append(contact.getGroups().iterator().next().getName());
         }
         return String.valueOf(allInfo);
     }

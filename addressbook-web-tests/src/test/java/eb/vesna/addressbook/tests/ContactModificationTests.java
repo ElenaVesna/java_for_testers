@@ -15,23 +15,26 @@ public class ContactModificationTests extends TestBase{
         if (app.db().contacts().size() == 0) {
             app.goTo().homePage();
             app.contact().create(new ContactData()
-                    .withFirstname("Elena").withLastName("Vesna").
-                    withMobilePhone("+79000000").withHomePhone("999999").withWorkPhone("+7100000").
-                    withEmail("test@test.com").
-                    withAddress("Ryazan").
-                    withGroup("testGroup2"));
+                    .withFirstname("Elena").withLastName("Vesna")
+                    .withMobilePhone("+79000000").withHomePhone("999999").withWorkPhone("+7100000")
+                    .withEmail("test@test.com")
+                    .withAddress("Ryazan")
+                    .inGroup(app.db().groups().iterator().next())
+            );
         }
     }
 
     @Test
-        public void testContactCreation() {
+        public void testContactModification() {
             Contacts before = app.db().contacts();
             ContactData modifiedContact = before.iterator().next();
             ContactData contact = new ContactData()
-                    .withId(modifiedContact.getId()).withFirstname("Elena-new").withLastName("Vesna-new")
+                    .withId(modifiedContact.getId())
+                    .withFirstname("Elena-new").withLastName("Vesna-new")
                     .withAddress("Ryazan1")
                     .withMobilePhone("+79000000").withHomePhone("999999").withWorkPhone("+7100000")
-                    .withEmail("test1@test.com").withEmail2("test2@test.com").withEmail3("test3@test.com");
+                    .withEmail("test1@test.com").withEmail2("test2@test.com").withEmail3("test3@test.com")
+                    .inGroup(modifiedContact.getGroups().iterator().next());
             app.contact().modify(contact);
             assertThat(app.contact().count(), equalTo(before.size()));
             Contacts after = app.db().contacts();

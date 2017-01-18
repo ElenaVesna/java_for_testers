@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import eb.vesna.addressbook.models.ContactData;
 import eb.vesna.addressbook.models.Contacts;
+import eb.vesna.addressbook.models.Groups;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -34,7 +35,8 @@ public class ContactCreationTests extends TestBase {
                         .withAddress(split[2])
                         .withEmail(split[3]).withEmail2(split[4]).withEmail3(split[5])
                         .withHomePhone(split[6]).withMobilePhone(split[7]).withWorkPhone(split[8])
-                        .withGroup(split[9])});
+//                        .withGroup(split[9])
+                });
                 line = reader.readLine();
             }
             return list.iterator();
@@ -75,9 +77,9 @@ public class ContactCreationTests extends TestBase {
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
         app.goTo().homePage();
+        Groups groups = app.db().groups();
         Contacts before = app.db().contacts();
-        //ContactData contact = new ContactData().withPhoto(new File("src/test/resources/kitty.jpg"));
-        app.contact().create(contact);
+        app.contact().create(contact.inGroup(groups.iterator().next()));
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.db().contacts();

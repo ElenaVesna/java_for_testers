@@ -64,7 +64,7 @@ public class TestBase {
             Contacts uiContacts = app.contact().all();
             assertThat(uiContacts, equalTo(dbContacts.stream()
                     .map((c) -> new ContactData()
-                            .withId(c.getId()).withFirstname(c.getFirstName()).withLastName(c.getLastName())
+                            .withId(c.getId()).withFirstname(c.getFirstname()).withLastName(c.getLastName())
                             .withAddress(c.getAddress()).withAllEmails(c.getAllEmails()).withAllPhones(c.getAllPhones()))
                     .collect(Collectors.toSet())));
         }

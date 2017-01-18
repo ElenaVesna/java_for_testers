@@ -15,11 +15,12 @@ public class ContactDeletionTests extends TestBase{
         if (app.db().contacts().size() == 0) {
             app.goTo().homePage();
             app.contact().create(new ContactData()
-                    .withFirstname("Elena").withLastName("Vesna").
-                            withMobilePhone("+79000000").withHomePhone("999999").withWorkPhone("+7100000").
-                            withEmail("test@test.com").
-                            withAddress("Ryazan").
-                            withGroup("testGroup2"));
+                    .withFirstname("Elena").withLastName("Vesna")
+                    .withMobilePhone("+79000000").withHomePhone("999999").withWorkPhone("+7100000")
+                    .withEmail("test@test.com")
+                    .withAddress("Ryazan")
+                    .inGroup(app.db().groups().iterator().next())
+            );
         }
     }
 

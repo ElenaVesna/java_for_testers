@@ -17,7 +17,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void fillContactForm(ContactData contactData, boolean creation) {
-        type (By.name("firstname"), contactData.getFirstName());
+        type (By.name("firstname"), contactData.getFirstname());
         type (By.name("lastname"), contactData.getLastName());
         type (By.name("address"), contactData.getAddress());
         type (By.name("email"), contactData.getEmail());
@@ -30,7 +30,10 @@ public class ContactHelper extends HelperBase {
 //        attach (By.name("photo"), contactData.getPhoto());
 
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -145,12 +148,16 @@ public class ContactHelper extends HelperBase {
                 withFirstname(firstname).withLastName(lastname).
                 withMobilePhone(mobile).withHomePhone(home).withWorkPhone(work).
                 withAddress(address).
-                withEmail(email).withEmail2(email2).withEmail3(email3);
+                withEmail(email).withEmail2(email2).withEmail3(email3)
+//                .inGroup(contact.getGroups().iterator().next())
+                ;
     }
 
     public String infoFromDetailsForm(ContactData contact) {
         viewContactDetailsById(contact.getId());
         String allInfo = wd.findElement(By.id("content")).getText();
+        String[] info = allInfo.split("\n\n\n");
+        allInfo = info[0];
         return allInfo;
     }
 

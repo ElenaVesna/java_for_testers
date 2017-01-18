@@ -21,8 +21,9 @@ public class ContactPhoneEmailAddressTests extends TestBase {
                     withFirstname("Elena").withLastName("Vesna").
                     withMobilePhone("+79000000").withHomePhone("999999").withWorkPhone("+7100000").
                     withEmail("test@test.com").withEmail2("111@test.com").withEmail3("222@test.com").
-                    withAddress("Ryazan").
-                    withGroup("testGroup2"));
+                    withAddress("Ryazan")
+//                    .withGroup("testGroup2")
+            );
         }
     }
 

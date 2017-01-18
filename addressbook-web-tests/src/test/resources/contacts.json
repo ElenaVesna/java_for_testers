@@ -20,5 +20,16 @@
     "email": "email-1",
     "email2": "secondEmail-1",
     "email3": "thirdEmail-1"
+  },
+  {
+    "firstname": "name-2",
+    "lastName": "surname-2",
+    "address": "address-2",
+    "mobilePhone": "00-00-02",
+    "workPhone": "4950000002",
+    "homePhone": "000-00-02",
+    "email": "email-2",
+    "email2": "secondEmail-2",
+    "email3": "thirdEmail-2"
   }
 ]

@@ -1,7 +1,17 @@
 [
   {
-    "name": "testGroup6-11",
-    "header": "header6-11",
-    "footer": "footer6-11"
+    "name": "testGroup0",
+    "header": "header0",
+    "footer": "footer0"
+  },
+  {
+    "name": "testGroup1",
+    "header": "header1",
+    "footer": "footer1"
+  },
+  {
+    "name": "testGroup2",
+    "header": "header2",
+    "footer": "footer2"
   }
 ]

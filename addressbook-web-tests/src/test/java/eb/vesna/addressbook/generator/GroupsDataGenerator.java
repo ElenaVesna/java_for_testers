@@ -15,6 +15,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+//-f src/test/resources/groups.json -c 3 -d json
 public class GroupsDataGenerator {
 
     @Parameter (names = "-c", description = "Group count")
