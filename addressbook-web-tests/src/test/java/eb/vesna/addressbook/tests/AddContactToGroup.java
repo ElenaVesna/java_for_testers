@@ -1,14 +1,23 @@
 package eb.vesna.addressbook.tests;
 
 import eb.vesna.addressbook.models.ContactData;
+import eb.vesna.addressbook.models.Contacts;
 import eb.vesna.addressbook.models.GroupData;
+import eb.vesna.addressbook.models.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class AddContactToGroup extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("testGroup1"));
+        }
         if (app.db().contacts().size() == 0) {
             app.goTo().homePage();
             app.contact().create(new ContactData()
@@ -18,17 +27,23 @@ public class AddContactToGroup extends TestBase {
                     .withAddress("Ryazan")
             );
         }
-        if (app.db().groups().size() == 0) {
-            app.goTo().groupPage();
-            app.group().create(new GroupData().withName("testGroup1"));
-        }
     }
 
     @Test
     public void addContactToGroup() {
+        Contacts before = app.db().contacts();
+
         app.goTo().homePage();
         ContactData modifyContact = app.db().contacts().iterator().next();
+        Groups groupsBefore = modifyContact.getGroups();
         app.contact().addToGroup(modifyContact);
+        app.goTo().homePage();
+
+        Groups groupsAfter = modifyContact.getGroups();
+
+        assertThat(app.db().contacts().size(), equalTo(before.size()));
+
+//        assertThat(modifyContact.getGroups().size(), equalTo(groupsBefore.size() + 1));
     }
 
 

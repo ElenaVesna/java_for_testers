@@ -2,7 +2,7 @@ package eb.vesna.addressbook.appmanager;
 
 import eb.vesna.addressbook.models.ContactData;
 import eb.vesna.addressbook.models.Contacts;
-import eb.vesna.addressbook.models.Groups;
+import eb.vesna.addressbook.models.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -167,9 +167,9 @@ public class ContactHelper extends HelperBase {
 
     public void addToGroup(ContactData contact) {
         selectContactById(contact.getId());
-        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(app.db().groups().iterator().next().getName());
+        GroupData group = app.db().groups().iterator().next();
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
         click(By.xpath("//input[@name='add']"));
-
     }
 
     public void removeFromGroup(ContactData contact) {
@@ -182,6 +182,5 @@ public class ContactHelper extends HelperBase {
         } else {
             System.out.println("The selected contact is not assigned to any group");
         }
-
     }
 }
