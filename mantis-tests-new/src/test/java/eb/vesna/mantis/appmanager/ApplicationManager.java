@@ -1,4 +1,4 @@
-package eb.mantis.appmanager;
+package eb.vesna.mantis.appmanager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,9 +13,9 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-    private String browser;
     WebDriver wd;
     private final Properties properties;
+    private String browser;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -41,11 +41,4 @@ public class ApplicationManager {
         wd.quit();
     }
 
-    public HttpSession newSession() {
-        return new HttpSession(this);
-    }
-
-    public String getProperty(String key) {
-        return properties.getProperty(key);
-    }
 }
