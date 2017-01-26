@@ -46,9 +46,9 @@ public class HttpSession {
     }
 
     public boolean isLoggedInAs(String username) throws IOException {
-        HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
+        HttpGet get = new HttpGet(app.getProperty("web.baseURL") + "/index.php");
         CloseableHttpResponse response = httpclient.execute(get);
         String body = geTextForm(response);
-        return body.contains(String.format("<span class=\"italic\">%s</span>", username));
+        return body.contains(String.format("\"%s\"", username));
     }
 }

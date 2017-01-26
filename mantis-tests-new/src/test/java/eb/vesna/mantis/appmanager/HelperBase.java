@@ -7,8 +7,6 @@ import org.openqa.selenium.WebDriver;
 
 import java.io.File;
 
-//Created by Elena_Bogomolova on 01.12.2016.
-
 public class HelperBase {
 
     protected WebDriver wd;

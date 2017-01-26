@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
 import static org.testng.AssertJUnit.assertTrue;
 
 
@@ -20,7 +21,7 @@ public class ResetUserPassword extends TestBase {
     }
 
     @Test
-    public void resetPasswordByAdmin() throws IOException {
+    public void resetPasswordByAdmin() throws IOException, InterruptedException {
         String username = "user1";
         String email = "user1@localhost.localdomain";
         String newPassword = "password1-new";
@@ -29,11 +30,11 @@ public class ResetUserPassword extends TestBase {
         app.manageUsers().chooseUser(username);
         app.manageUsers().initResetPassword();
 
-        HttpSession session = app.newSession();
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmationLink = app.mail().findConfirmationLink(mailMessages, email);
         app.manageUsers().finishPasswordReset(confirmationLink, newPassword);
 
+        HttpSession session = app.newSession();
         assertTrue(session.login(username, newPassword));
         assertTrue(session.isLoggedInAs(username));
     }

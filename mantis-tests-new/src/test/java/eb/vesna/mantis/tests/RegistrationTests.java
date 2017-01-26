@@ -28,8 +28,7 @@ public class RegistrationTests extends TestBase {
         List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink, password);
-        boolean loginResult = app.newSession().login(user, password);
-        assertTrue(loginResult);
+        assertTrue(app.newSession().login(user, password));
 
     }
 
