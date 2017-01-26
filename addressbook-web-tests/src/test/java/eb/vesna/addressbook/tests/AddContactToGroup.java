@@ -39,11 +39,8 @@ public class AddContactToGroup extends TestBase {
         app.contact().addToGroup(modifyContact);
         app.goTo().homePage();
 
-        Groups groupsAfter = modifyContact.getGroups();
-
         assertThat(app.db().contacts().size(), equalTo(before.size()));
-
-//        assertThat(modifyContact.getGroups().size(), equalTo(groupsBefore.size() + 1));
+        assertThat(modifyContact.getGroups().size(), equalTo(groupsBefore.size() + 1));
     }
 
 

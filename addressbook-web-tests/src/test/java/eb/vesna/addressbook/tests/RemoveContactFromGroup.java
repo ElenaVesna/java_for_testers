@@ -3,13 +3,14 @@ package eb.vesna.addressbook.tests;
 import eb.vesna.addressbook.models.ContactData;
 import eb.vesna.addressbook.models.Contacts;
 import eb.vesna.addressbook.models.GroupData;
+import eb.vesna.addressbook.models.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class DeleteContactFromGroup extends TestBase {
+public class RemoveContactFromGroup extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
@@ -35,10 +36,12 @@ public class DeleteContactFromGroup extends TestBase {
 
         app.goTo().homePage();
         ContactData modifyContact = app.db().contacts().iterator().next();
+        Groups groupsBefore = modifyContact.getGroups();
         app.contact().removeFromGroup(modifyContact);
+        app.goTo().homePage();
 
         assertThat(app.db().contacts().size(), equalTo(before.size()));
-
+        assertThat(modifyContact.getGroups().size(), equalTo(groupsBefore.size() - 1));
     }
 
 
