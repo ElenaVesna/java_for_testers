@@ -27,12 +27,12 @@ public class MailHelper {
                 return wiser.getMessages().stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
             }
             try {
-                Thread.sleep(10000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        throw  new Error("No mails :(");
+        throw new Error("No mails :(");
     }
 
     public static MailMessage toModelMail(WiserMessage m) {

@@ -21,13 +21,13 @@ public class ManageUsers extends HelperBase{
         wd.get(confirmationLink);
         type(By.name("password"), newPassword);
         type(By.name("password_confirm"), newPassword);
-        click(By.cssSelector("input[value='Login']"));
+        click(By.cssSelector("input[value='Update User']"));
     }
 
     public void loginUI(String username, String password) {
         wd.get(app.getProperty("web.baseURL") + "/login_page.php");
         type(By.name("username"), username);
         type(By.name("password"), password);
-        click(By.cssSelector("input[value='Update User']"));
+        click(By.cssSelector("input[value='Login']"));
     }
 }
