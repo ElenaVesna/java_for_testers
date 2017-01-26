@@ -3,6 +3,7 @@ package eb.vesna.mantis.appmanager;
 import eb.vesna.mantis.models.MailMessage;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
+import ru.lanwen.verbalregex.VerbalExpression;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -37,7 +38,7 @@ public class MailHelper {
     public static MailMessage toModelMail(WiserMessage m) {
         try {
             MimeMessage mm = m.getMimeMessage();
-            return new MailMessage(mm.getAllRecipients()[1].toString(), (String) mm.getContent());
+            return new MailMessage(mm.getAllRecipients()[0].toString(), (String) mm.getContent());
         } catch (MessagingException e) {
             e.printStackTrace();
             return null;
@@ -45,6 +46,12 @@ public class MailHelper {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String findConfirmationLink(List<MailMessage> mailMessages, String email) {
+        MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
+        VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
+        return regex.getText(mailMessage.text);
     }
 
     public void start() {wiser.start();}
