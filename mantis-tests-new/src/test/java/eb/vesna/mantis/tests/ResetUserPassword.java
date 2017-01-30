@@ -21,7 +21,7 @@ public class ResetUserPassword extends TestBase {
     }
 
     @Test
-    public void resetPasswordByAdmin() throws IOException, InterruptedException {
+    public void resetPasswordByAdmin() throws IOException {
         String username = "user1";
         String email = "user1@localhost.localdomain";
         String newPassword = "password1-new";
